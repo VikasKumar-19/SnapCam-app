@@ -1,0 +1,81 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    overflow-y: overlay;
+}
+
+.video-container{
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: black;
+}
+
+video{
+    height: 100%;
+    width: 100%;
+}
+
+button{
+    height: 4rem;
+    width: 4rem;
+    border-radius: 50%;
+    position: fixed;
+    right: 2rem;
+    border: none;
+    outline: none;
+}
+
+#record{
+    top: 40vh;
+}
+#capture{
+    top: 55vh;
+}
+
+.filters{
+    height: 12rem;
+    width: 5rem;
+    position: fixed;
+    top: 20vh;
+    left: 4rem;
+    display: flex;
+    flex-direction: column;
+    /* border: 2px solid white; */
+}
+
+.filter{
+    flex-grow: 1;
+    border: 2px solid white;
+    background-image: url(https://images-na.ssl-images-amazon.com/images/I/91L89HuvrcL.png);
+    background-blend-mode: color-burn;
+    background-size: cover;
+}
+
+.zoom{
+    position: fixed;
+    top: 10vh;
+    right: 2rem;
+    height: 8rem;
+    width: 4rem;
+    /* border: 2px solid white; */
+    display: flex;
+    flex-direction: column;
+}
+
+.zoom div{
+    flex-grow: 1;
+    border: 1px solid black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.material-icons{
+    font-size: 3rem!important;
+    cursor: default;
+}
