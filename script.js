@@ -9,6 +9,14 @@ let isRecording = false;
 
 //on clicking the capture button we are creating a canvas and draw the particular frame from video at time of clicked on capture btn.
 captureBtn.addEventListener("click", function(){
+
+    let captureCircle = captureBtn.querySelector('span');
+    captureCircle.classList.add("capture-animation");
+
+    setTimeout(function(){
+        captureCircle.classList.remove("capture-animation");
+    },1000)
+
     let canvas = document.createElement("canvas"); 
     // canvas.height = window.innerHeight; 
     // canvas.width = window.innerWidth;
@@ -31,12 +39,15 @@ captureBtn.addEventListener("click", function(){
 })
 
 recordBtn.addEventListener("click", function(){
+    let recordCircle = recordBtn.querySelector('span');
 
     if(isRecording){
+        recordCircle.classList.remove("record-animation")
         mediaRecorder.stop();
         isRecording = false;
     }
     else{
+        recordCircle.classList.add("record-animation")
         mediaRecorder.start();
         isRecording = true;
     }

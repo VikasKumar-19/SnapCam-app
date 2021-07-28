@@ -25,15 +25,35 @@ button{
     border-radius: 50%;
     position: fixed;
     right: 2rem;
-    border: none;
+    border: 8px solid white;
     outline: none;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button span{
+    display: inline-block;
+    height: 60%;
+    width: 70%;
+    border-radius: 50%;
 }
 
 #record{
     top: 40vh;
 }
+
+#record span{
+    background-color: red;
+}
+
 #capture{
     top: 55vh;
+}
+
+#capture span{
+    background-color: white;
 }
 
 .filters{
@@ -78,4 +98,30 @@ button{
 .material-icons{
     font-size: 3rem!important;
     cursor: default;
+}
+
+/* add this class to the capture button's span element on when 'click' event will be triggered */
+.capture-animation{
+    animation-name: shrinkDownUp;
+    animation-duration: 0.3s;
+}
+
+/* add this class to the record button's span element on when 'click' event will be triggered and recording is on*/
+.record-animation{
+    animation-name: shrinkDownUp;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
+/* this animation is for capture button */
+@keyframes shrinkDownUp {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.7);
+    }
+    100%{
+        transform: scale(1);
+    }
 }
