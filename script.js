@@ -7,6 +7,27 @@ let mediaRecorder;
 let chunks = [];
 let isRecording = false;
 
+let allFilters = document.querySelectorAll('.filter')
+let filter = ""
+
+for(let i = 0; i < allFilters.length; i++){
+
+    allFilters[i].addEventListener("click", function(ev){
+        let color = ev.currentTarget.style.backgroundColor; //get the color of the filter
+        filter = color;
+
+        let prevfilterDiv = document.querySelector('.filter-div'); // checking if filter is already exist
+
+        if(prevfilterDiv) prevfilterDiv.remove();
+        
+        let filterDiv = document.createElement("div");      //create filterDiv
+        filterDiv.classList.add("filter-div");              //give the class
+        filterDiv.style.backgroundColor = color;            //set the color
+        body.append(filterDiv);                             //append it in the body
+
+    })
+}
+
 //on clicking the capture button we are creating a canvas and draw the particular frame from video at time of clicked on capture btn.
 captureBtn.addEventListener("click", function(){
 
@@ -27,7 +48,12 @@ captureBtn.addEventListener("click", function(){
     let tool = canvas.getContext("2d");
 
     tool.drawImage(video, 0, 0);
-    
+
+    if(filter != ""){
+        tool.fillStyle = filter;
+        tool.fillRect(0, 0, canvas.width, canvas.height);
+    }
+
     let imageURL = canvas.toDataURL();
     canvas.remove();
 
@@ -40,6 +66,9 @@ captureBtn.addEventListener("click", function(){
 
 recordBtn.addEventListener("click", function(){
     let recordCircle = recordBtn.querySelector('span');
+    let prevfilterDiv = document.querySelector('.filter-div'); // checking if filter is already exist
+    if(prevfilterDiv) prevfilterDiv.remove();
+    filter = "";
 
     if(isRecording){
         recordCircle.classList.remove("record-animation")
