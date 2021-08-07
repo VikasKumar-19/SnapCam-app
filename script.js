@@ -2,6 +2,16 @@ let video = document.querySelector('video');
 let recordBtn = document.querySelector("#record");
 let captureBtn = document.querySelector('#capture');
 let body = document.querySelector("body");
+
+let mediaRecorder;
+let chunks = [];
+let isRecording = false;
+
+let allFilters = document.querySelectorAll('.filter')
+let filter = ""
+
+let galleryBtn = document.querySelector("#gallery");
+
 let zoomIn = document.querySelector('.in');
 let zoomOut = document.querySelector('.out');
 let currZoom = 1;       // this is for zoom level min-val = 1, and it's max-value = 3
@@ -26,12 +36,9 @@ zoomOut.addEventListener("click", function(){
     video.style.transform = `scale(${currZoom})`;
 })
 
-let mediaRecorder;
-let chunks = [];
-let isRecording = false;
-
-let allFilters = document.querySelectorAll('.filter')
-let filter = ""
+galleryBtn.addEventListener("click", function(){
+    location.assign("gallery.html");
+})
 
 for(let i = 0; i < allFilters.length; i++){
 
@@ -83,11 +90,14 @@ captureBtn.addEventListener("click", function(){
     let imageURL = canvas.toDataURL();
     canvas.remove();
 
-    let a = document.createElement('a');
-    a.href = imageURL;
-    a.download = "image.png";
-    a.click();
-    a.remove();
+    saveMedia(imageURL);
+
+// ---------------as we are saving the image data url in indexedDB, there is no need to create an anchor tag for download image --------
+    // let a = document.createElement('a');
+    // a.href = imageURL;
+    // a.download = "image.png";
+    // a.click();
+    // a.remove();
 })
 
 recordBtn.addEventListener("click", function(){
@@ -125,13 +135,16 @@ promise.then(function(mediaStream){
         let blob = new Blob(chunks, {type: "video/mp4"});
         chunks = [];
 
-        let link = URL.createObjectURL(blob);
+        saveMedia(blob);
 
-        let a = document.createElement('a');
-        a.href = link;
-        a.download = "video.mp4";
-        a.click();
-        a.remove();
+// ---------------as we are saving the blob of the video in indexedDB, there is no need to create an anchor tag for download video --------
+        // let link = URL.createObjectURL(blob);
+
+        // let a = document.createElement('a');
+        // a.href = link;
+        // a.download = "video.mp4";
+        // a.click();
+        // a.remove();
     })
     // console.log("user has given the access");
 })
