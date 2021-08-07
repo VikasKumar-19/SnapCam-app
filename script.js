@@ -2,6 +2,29 @@ let video = document.querySelector('video');
 let recordBtn = document.querySelector("#record");
 let captureBtn = document.querySelector('#capture');
 let body = document.querySelector("body");
+let zoomIn = document.querySelector('.in');
+let zoomOut = document.querySelector('.out');
+let currZoom = 1;       // this is for zoom level min-val = 1, and it's max-value = 3
+
+zoomIn.addEventListener("click", function(){
+    currZoom += 0.1;
+
+    if(currZoom > 3){
+        currZoom = 3;
+    }
+
+    video.style.transform = `scale(${currZoom})`;
+})
+
+zoomOut.addEventListener("click", function(){
+    currZoom -= 0.1;
+
+    if(currZoom < 1){
+        currZoom = 1;
+    }
+
+    video.style.transform = `scale(${currZoom})`;
+})
 
 let mediaRecorder;
 let chunks = [];
@@ -39,13 +62,16 @@ captureBtn.addEventListener("click", function(){
     },1000)
 
     let canvas = document.createElement("canvas"); 
-    // canvas.height = window.innerHeight; 
-    // canvas.width = window.innerWidth;
 
-    canvas.height = video.videoHeight;
+    //for captured image to be in exact size as video
     canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
     let tool = canvas.getContext("2d");
+
+    tool.translate(canvas.width / 2, canvas.height / 2) // this will bring the origin on center.
+    tool.scale(currZoom, currZoom) // this will scale up to the current zoom level in x and y direction.
+    tool.translate(-canvas.width / 2, -canvas.height / 2) // this will bring back the origin to the top-left corner of the canvas.
 
     tool.drawImage(video, 0, 0);
 
@@ -77,6 +103,8 @@ recordBtn.addEventListener("click", function(){
     }
     else{
         recordCircle.classList.add("record-animation")
+        currZoom = 1;
+        video.style.transform = `scale(${currZoom})`;
         mediaRecorder.start();
         isRecording = true;
     }
