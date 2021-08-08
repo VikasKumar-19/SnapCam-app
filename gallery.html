@@ -18,12 +18,20 @@
         </div> -->
     </div>
 
+    <button id="goback">Go to camera</button>
 
     <script src="./dbScript.js"></script>
     <script>
         setTimeout(function(){
             viewMedia();
         }, 100)
+
+        let goBackBtn = document.querySelector("#goback");
+        goBackBtn.addEventListener("click", function(){
+            let origin = location.origin;
+            // console.log(origin + );
+            location.assign(origin + '/main')
+        })
     </script>
 </body>
 </html>

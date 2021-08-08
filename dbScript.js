@@ -1,5 +1,6 @@
 let req = indexedDB.open("Gallery", 1);
 let database;
+let numberOfMedia = 0;
 
 req.addEventListener("success", function(){
     database = req.result;
@@ -50,6 +51,8 @@ function viewMedia(){
 
         if(cursor){
             
+            numberOfMedia++;
+
             let mediaCard = document.createElement('div');
             mediaCard.classList.add('media-card');
             mediaCard.innerHTML = `<div class="actual-media"></div>
@@ -98,6 +101,12 @@ function viewMedia(){
 
             galleryContainer.append(mediaCard);
             cursor.continue();
+        }
+
+        else{
+            if(numberOfMedia == 0){
+                galleryContainer.innerHTML = "No media present";
+            }
         }
     });
 }
