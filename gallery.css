@@ -1,0 +1,61 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}
+
+.gallery-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.media-card{
+    margin-top: 2rem;
+    height: 20rem;
+    width: 22rem;
+    border: 1px solid;
+}
+
+.actual-media{
+    width: 100%;
+    height: 80%;
+    border: 1px solid;
+}
+
+.media-buttons{
+    width: 100%;
+    height: 20%;
+    border: 1px solid;
+}
+
+.media-buttons button{
+    display: block;
+    width: 100%;
+    height: 50%;
+    border: none;
+    outline: none;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.media-download{
+    background-color: black;
+}
+
+.media-delete{
+    background-color: red;
+}
+
+.actual-media img{
+    height: 100%;
+    width: 100%;
+}
+
+.actual-media video{
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}

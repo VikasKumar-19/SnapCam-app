@@ -30,3 +30,56 @@ function saveMedia(media){
     mediaObjectStore.add(data)
 
 }
+
+function viewMedia(){
+    console.log("hi");
+    if(!database){
+        return;
+    }
+
+    let galleryContainer = document.querySelector('.gallery-container');
+
+    let txn = database.transaction("media", "readonly");
+    let mediaObjectStore = txn.objectStore("media");
+    
+    let req = mediaObjectStore.openCursor();
+
+    req.addEventListener("success",function(){
+
+        let cursor = req.result;
+
+        if(cursor){
+            
+            let mediaCard = document.createElement('div');
+            mediaCard.classList.add('media-card');
+            mediaCard.innerHTML = `<div class="actual-media"></div>
+            <div class="media-buttons">
+                <button class="media-download">Download</button>
+                <button class="media-delete">Delete</button>
+            </div>`
+
+            let data = cursor.value.mediaData;
+
+            let actualMediaDiv = mediaCard.querySelector('.actual-media');
+            
+            if(typeof data == "string"){
+                let image = document.createElement("img");
+                image.src = data;
+                actualMediaDiv.append(image);
+            }
+            else if(typeof data == "object"){
+                let video = document.createElement('video');
+                video.autoplay = true;
+                video.loop = true;
+                video.controls = true;
+                video.muted = true;
+                let url = URL.createObjectURL(data);
+                video.src = url;
+                actualMediaDiv.append(video);
+            }
+
+            galleryContainer.append(mediaCard);
+            cursor.continue();
+        }
+    })
+}
