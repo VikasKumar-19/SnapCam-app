@@ -28,8 +28,8 @@
 
         let goBackBtn = document.querySelector("#goback");
         goBackBtn.addEventListener("click", function(){
-            let origin = location.origin;
-            location.assign(origin)
+            let path = location.origin + "/SnapCam-app";
+            location.assign(path)
         })
     </script>
 </body>
